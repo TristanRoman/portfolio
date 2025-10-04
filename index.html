@@ -2,12 +2,192 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Tristan Roman: Personal site and portfolio</title>
-    <h1>Tristan Roman</h1>
-    <p>Hello, My name is Tristan Roman, and I am a San Diego native, born and raised.</p>
+    <title>Homepage</title>
+    <link rel="stylesheet" href="./index_css.css"> 
+    <link rel="stylesheet" href="./shared_css.css">
 </head>
 <body>
+    <header>
+        <nav class="navbar"><!-- Navigation bar-->
+            <a href="./index.html">Home</a>
+            <a href="./resume.html">Resume</a>
+            <a href="./projectwork.html">Project Work</a>
+            <a href="./future_goals.html">Future Goals</a>
+        </nav>
+    </header>
+    <main>
+        <div class="main_grid"><!--Front page grid-->
+            <div class="circle_avatar"></div><!--This is code taken from source in index_css.css-->
+            <div id="homepage_top_right"><!--This is the right side of the grid-->
+                <h3 id="hello"> Hello, I am</h3>
+                <h2 id="homepage_name"> TRISTAN ROMAN</h2>
+                <h4 id="homepage_major"> Management of Information Systems</h4>
+                <p id="homepage_paragraph">
+                    What lays in front of you is my personal website, coded by me
+                    from scratch, to showcase what value I can bring to your organization.
+                    Populating it, you will find various pieces of content. The first is
+                    an about me section, shown below. Next, I showcase high quality
+                    project work to not lead by words but to lead by evidence.
+                    In addition, you will find my resume. Lastly, an outline
+                    of my future goals is touched on.
+                    <br>
+                    <br>
+                    <b>So</b>, feel free to scroll down or click the button to learn more about me or navigate 
+                    via the menu above to the wanted piece of content. 
+                </p>
+                <a href="#homepage_about_me"  
+                   id="about_me_button">
+                   About Me
+                </a>
+            </div>
+        </div>
+        <!--All images used are from a free hd stock photo website that specifies "No Attribution Required";
+
+        Using another grid to hold my about me sections; My method employed: Used an alternating approach
+        in that one side has image, then text section, then alternates to text on left, image on right, thus using
+        two css options for when alternation occurs
     
+        Main grid about_me_grid holds all-->
+        <div class="about_me_grid">
+            <div id="homepage_about_me"> <!--About me heading-->
+                <h2>About Me</h2>
+                <hr id="hr"> <!--Thematic bar-->
+            </div>
+            <div class="about_me_left"> <!--Here the main about me sections start-->
+                <img 
+                    src="./images/MIS_img.jpg" 
+                    class="about_me_img_left"
+                    alt="A picture with a woman having code projected on her."
+                    title="Technologist with Code Projected on Them.">
+            </div>
+            <div class="about_me_right">
+                <div class="about_me_section_right">
+                    <h2 class="about_me_heading_right">Management of Information Systems</h2>
+                    <p class="about_me_paragraph">
+                        I am a to-be graduate in Management of Information Systems
+                        at Fowler College of Business. Specializing in Information
+                        Systems uniquely positions myself as a mediator between 
+                        technical technology roles and the business minds that run
+                        their organizations. At the core of an MIS graduate is a 
+                        professional who is varied in approach and has the ability 
+                        to apply technology to materialize a return in value.
+                    </p>
+                </div>
+            </div>
+            <!--the div about_me_left and about_me_right are used to hold the alternating content;
+            It is worth noting that I utilize an id so that I can be assured my grid placement is correct
+            for each section except the first, the id selector in css file specifies start and end for elements-->
+            <div class="about_me_left" id="task_goal_section"> <!--I then alternate starting now, repeats over and over; text left, img right, img left, text right ect.-->
+                <div class="about_me_section_left">
+                    <h2 class="about_me_heading_left">Task and Goal Orientation</h2>
+                    <p class="about_me_paragraph">
+                        In an individualized sense, at my core, I am task and goal 
+                        oriented. What this results in is me having an inclination
+                        to break down a business context into actionable tasks 
+                        that can be tracked towards measurable goals. By living 
+                        by this orientation, I am able to work with abstract 
+                        problems that require unique solutions. 
+                    </p>
+                </div>
+            </div>
+            <div class="about_me_right" id="task_goal_img">
+                <img 
+                    src="./images/task_goal_img.jpg" 
+                    class="about_me_img_right"
+                    alt="An abstract photo with a spiral of wires."
+                    title="Abstract Wire Photo">
+            </div>
+
+            <div class="about_me_left" id="conscientious_img">
+                <img 
+                    src="./images/conscientious_img.jpg" 
+                    class="about_me_img_left"
+                    alt="A detailed photo of a wet leaf."
+                    title="Detailed Leaf that is Wet">
+            </div>
+            <div class="about_me_right" id="conscientious">
+                <div class="about_me_section_right">
+                    <h2 class="about_me_heading_right">Conscientious at Heart</h2>
+                    <p class="about_me_paragraph">
+                        Out of all the traits I possess, I am most proud of my 
+                        conscientiousness. I find it a valuable trait as a 
+                        conscientious individual is one who strives to notice 
+                        detail and thoroughly apply themselves. At the end of 
+                        the day, I persistently seek to materialize high quality 
+                        results.
+                    </p>
+                </div>
+            </div>
+
+            <div class="about_me_left" id="cross_functional_section">
+                <div class="about_me_section_left">
+                    <h2 class="about_me_heading_left">Business Cross Functionality</h2>
+                    <p class="about_me_paragraph">
+                        If you take a peek within my business psych, you will
+                        find a theme of cross functionality. The MIS program at
+                        Fowler College of Business has oriented my business 
+                        understanding to knowing business processes are cross 
+                        functional in nature. With this, a valuable element I 
+                        possess is an understanding of a variety of core business 
+                        fundamentals that allows me to perceive the implications
+                        of business decisions.
+                    </p>
+                </div>
+            </div>
+            <div class="about_me_right" id="cross_functional_img">
+                <img 
+                    src="./images/cross_functional_img.jpg" 
+                    class="about_me_img_right"
+                    alt="Photo showing many pieces working together with color"
+                    title="Abstract Glass with Color">
+            </div>
+            
+            <div class="about_me_left" id="communication_img">
+                <img 
+                    src="./images/communication_img.jpg" 
+                    class="about_me_img_left"
+                    alt="A mic awaiting one to speak."
+                    title="Mic Ready to be Used">
+            </div>
+            <div class="about_me_right" id="communication_section">
+                <div class="about_me_section_right">
+                    <h2 class="about_me_heading_right">Efficient and Effective Communication</h2>
+                    <p class="about_me_paragraph">
+                        I am proud to share with you a cornerstone of the skills 
+                        I possess, effective and efficient communication. An 
+                        understanding that a business is only as good as its human
+                        embodiment has taught me the necessity of employing 
+                        tactful communication. At my core, I exhibit strong 
+                        interpersonal communication skills that allow me to 
+                        interact with all in an efficient and effective manner.
+                    </p>
+                </div>
+            </div>
+
+            <div class="about_me_left" id="san_diego_section">
+                <div class="about_me_section_left">
+                    <h2 class="about_me_heading_left">Multicultural Thinker</h2>
+                    <p class="about_me_paragraph">
+                        On a more personal note, I am a native San Diegan who is
+                        extremely grateful for what the city has offered. San 
+                        Diego is one of the most diverse cities in the world, 
+                        having a beautiful melting pot of many different cultures. 
+                        This fact has made me a multicultural thinker, who is able 
+                        to communicate with those from different backgrounds and 
+                        make meaningful connections.
+                    </p>
+                </div>
+            </div>
+            <div class="about_me_right" id="san_diego_img">
+                <img 
+                    src="./images/San_diego_img.jpg" 
+                    class="about_me_img_right"
+                    alt="A photo of the San Diego bay."
+                    title="San Diego Bay">
+            </div>
+        </div>
+    </main>
 </body>
 </html>
