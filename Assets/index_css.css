@@ -1,0 +1,250 @@
+/*All images used are from a free hd stock photo website that specifies "No Attribution Required"
+
+Grid at top of homepage, using a decorative background image*/
+.main_grid{
+    display: grid;
+    grid-template-columns: 49.5vw 49.5vw;
+    grid-template-rows: 100vh;
+    background-image: url(./images/homepage_bg_img.jpg);
+    background-size: cover;
+}
+
+/*Code below pertaining to .circle_avatar was adapted from a free resource @ the following 
+  link:https://freefrontend.com/css-border-examples/ Author: George W. Park April 9, 2018*/
+
+.circle_avatar{
+    flex-shrink: 0;
+    margin: auto;
+	height: calc(300px + 6vw);
+	width: calc(300px + 6vw);
+	border: calc(8px + 0.2vw) solid transparent;
+	background-origin: border-box;
+	background-clip: content-box, border-box;
+	background-size: cover;
+	box-sizing: border-box;
+	box-shadow: 0 0 5px 5px rgba(0, 0, 0, 0.5);
+    border-radius: 50%;
+	background-image: url(./images/home_circle_avatar_img.jpg), linear-gradient(to bottom right, #ff3cac, #562b7c, #2b86c5);
+}
+
+/*Styles right side cell of top homepage grid*/
+#homepage_top_right{
+    background-color: #ffffff;
+    opacity: .8;
+    font-family: Verdana, Geneva, Tahoma, sans-serif;
+    padding-left: 50px;
+    padding-right: 50px;
+    border-style: solid;
+    box-shadow: -5px 0px 5px rgba(0, 0, 0, 0.5);
+}
+/*Styles right side heading used for my name in top of main_grid*/
+#homepage_name{
+    font-size: 4em;
+    margin-top: 0px;
+    margin-bottom: 0px;
+    font-family: Verdana, Geneva, Tahoma, sans-serif;
+    font-weight: 1000;
+}
+/*Styles right side heading used as a greeting in top of main_grid*/
+#hello{
+    margin-top: 270px;
+    font-size: 2em;
+    font-weight: 1000;
+    margin-bottom: 35px;
+}
+/*Styles right side paragraph used for intro in top of main_grid*/
+#homepage_paragraph{
+    font-weight: 100;
+    font-size: 1.5em;
+    font-family: Geneva, Tahoma, sans-serif;
+}
+/*Styles right side heading used for my major in top of main_grid*/
+#homepage_major{
+    margin-bottom: 50px;
+    margin-top: 0px;
+}
+/*about me on page link*/
+#about_me_button{
+    font-family: Geneva, Tahoma, sans-serif;
+    font-size: 2em;
+    text-decoration: none;
+    background-color: #000000;
+    color: #ffffff;
+    padding: 2px 6px 2px 6px;
+    border-top: 1px solid #333333;
+    border-right: 1px solid #333333;
+    border-bottom: 1px solid #333333;
+    border-left: 1px solid #333333;
+}
+/*Beginning of the about_me_grid, has 2 columns with 7 rows*/
+.about_me_grid{
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    grid-template-rows: 19vh 46vh 46vh 46vh 46vh 46vh 46vh;
+    background-color: #fffafa;
+    margin-left: 5vw;
+    margin-right: 5vw;
+    box-shadow: 0 0 5px 5px rgba(0, 0, 0, 0.5);
+}
+/*Styles about_me heading used in about_me_grid*/
+#homepage_about_me{
+    grid-column: 1/4;
+    text-align: center;
+    font-family: Geneva, Tahoma, sans-serif;
+    font-size: 3em;
+    font-weight: 100
+}
+/*Styles thematic bar underneath about_me heading*/
+#hr{
+    width: 19%;
+    height: 5px;
+    border: 0 none;
+    text-align: center;
+    background: linear-gradient(to bottom right, #ff3cac, #562b7c, #2b86c5);
+    margin-top: -6vh;
+    
+}
+/*Left and right styling for divs*/
+.about_me_left{
+    background-color: #f8f8ff;
+    margin: 0% 0% 5% 15%;
+}
+
+.about_me_right{
+    background-color: #f8f8ff;
+    margin: 0% 15% 5% 0%;
+}
+/*Further left and right styling for divs to create alternating background design*/
+.about_me_section_right{
+    font-family: Verdana, Geneva, Tahoma, sans-serif; 
+    background-color: #fffafa;
+    height: 35vh;
+    width: 35vw;
+    margin-top: 3.5vh;
+    box-shadow: 5px 0px 10px rgba(0, 0, 0, 0.5);
+}
+
+.about_me_section_left{
+    float:right;
+    font-family: Verdana, Geneva, Tahoma, sans-serif; 
+    background-color: #fffafa;
+    height: 35vh;
+    width: 35vw;
+    margin-top: 3.5vh;
+    box-shadow: -5px 0px 10px rgba(0, 0, 0, 0.5);
+}
+
+/*Styling that is used depending on if section has img on left or right*/
+.about_me_img_left{
+    height:35vh;
+    width: 35vw;
+    float: right;
+    margin-top: 3.5vh;
+    box-shadow: -5px 0px 10px rgba(0, 0, 0, 0.5);
+}
+
+.about_me_img_right{
+    height:35vh;
+    width: 35vw;
+    float: left;
+    margin-top: 3.5vh;
+    box-shadow: 5px 0px 10px rgba(0, 0, 0, 0.5);
+}
+
+/*Styling that is used depending on if section has heading on left or right*/
+.about_me_heading_right{
+    display: inline-block;
+    margin-left: 2vw;
+    margin-top: 6vh;
+    font-size: 1.7em;
+    font-family: Verdana, Geneva, Tahoma, sans-serif;
+}
+
+.about_me_heading_left{
+    display: inline-block;
+    margin-left: 2vw;
+    margin-top: 6vh;
+    font-size: 1.7em;
+    font-family: Verdana, Geneva, Tahoma, sans-serif;
+}
+/*Styling for the inner paragraphs of about me sections*/
+.about_me_paragraph{
+    margin-left: 2vw;
+    margin-right: 2vw;
+    font-family: Geneva, Tahoma, sans-serif;
+    font-weight: 100;
+    font-size: 1.1em;
+}
+/*I wanted to assure correct grid cell placement, thus used explicit ids with start and end specifications*/
+#task_goal_section{
+    grid-column-start: 1;
+    grid-column-end: 2;
+    grid-row-start: 3;
+    grid-row-end: 4;
+}
+
+#task_goal_img{
+    grid-column-start: 2;
+    grid-column-end: 4;
+    grid-row-start: 3;
+    grid-row-end: 4;
+}
+
+#conscientious_img{
+    grid-column-start: 1;
+    grid-column-end: 2;
+    grid-row-start: 4;
+    grid-row-end: 5;
+}
+
+#conscientious{
+    grid-column-start: 2;
+    grid-column-end: 4;
+    grid-row-start: 4;
+    grid-row-end: 5;
+}
+
+#cross_functional_section{
+    grid-column-start: 1;
+    grid-column-end: 2;
+    grid-row-start: 5;
+    grid-row-end: 6;
+}
+
+#cross_functional_img{
+    grid-column-start: 2;
+    grid-column-end: 4;
+    grid-row-start: 5;
+    grid-row-end: 6;
+}
+
+#communication_img{
+    grid-column-start: 1;
+    grid-column-end: 2;
+    grid-row-start: 6;
+    grid-row-end: 7;
+}
+
+#communication_section{
+    grid-column-start: 2;
+    grid-column-end: 4;
+    grid-row-start: 6;
+    grid-row-end: 7;
+}
+
+#san_diego_section{
+    grid-column-start: 1;
+    grid-column-end: 2;
+    grid-row-start: 7;
+    grid-row-end: 8;
+}
+
+#san_diego_img{
+    grid-column-start: 2;
+    grid-column-end: 4;
+    grid-row-start: 7;
+    grid-row-end: 8;
+}
+
+
+

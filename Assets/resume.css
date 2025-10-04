@@ -1,0 +1,24 @@
+/* Grid used to hold the top heading and background image*/
+.main_grid{
+    display: grid;
+    grid-template-columns: 98.5vw; /*Had to utilize 98.5 to forego a horozontal bar showing up @100 on my screen*/
+    grid-template-rows: 25vh;
+    background-image: linear-gradient(0deg, rgba(0, 0, 0, 0.60),rgba(0, 0, 0, 0.60)),
+                      url(./images/resume_bg_img.jpg);/*adds overlay and background image*/
+    background-size: cover;
+    border-style: solid;
+    box-shadow: 0 0 5px 5px rgba(0, 0, 0, 0.5);
+}
+
+/* Styles iFrame used to hold the resume PDF file*/
+.resume_iframe{
+    display: block;
+    box-shadow: 0 0 5px 5px rgba(0, 0, 0, 0.5);
+    margin-left: auto;
+    margin-right: auto;
+    height: 100vh;
+    width: 80vw;
+}
+
+
+  
