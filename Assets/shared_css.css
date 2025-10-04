@@ -2,6 +2,7 @@
 body{
     margin: 0px;
     background-color: #f8f8ff;
+    font: 100%/1.5 system-ui;
 }
 /*Used to style the heading on the subpages*/
 .top_heading{

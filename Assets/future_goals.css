@@ -1,0 +1,179 @@
+/*Most of the code below was adapted from a free resource @ the following link:https://freefrontend.com/css-timelines/ Author: HTML Codex June 26,2020 */
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+/* Grid used to hold the top heading and background image*/
+.main_grid{
+    display: grid;
+    grid-template-columns: 98.5vw;
+    grid-template-rows: 25vh;
+    background-image: linear-gradient(0deg, rgba(0, 0, 0, 0.60), rgba(0, 0, 0, 0.60)),url(./images/future_goals_bg_img.jpg);
+    background-size: cover;
+    border-style: solid;
+    box-shadow: 0 0 5px 5px rgba(0, 0, 0, 0.5);
+}
+
+
+
+
+/*Start of code taken from source above*/
+.goalline {
+  position: relative;
+  width: 100%;
+  max-width: 1140px;
+  margin: 20px auto;
+  padding: 15px 0;
+}
+
+.goalline::after {
+  content: '';
+  position: absolute;
+  width: 2px;
+  background: rgb(0, 0, 0);
+  top: 0;
+  bottom: 0;
+  left: 50%;
+  margin-left: -1px;
+}
+
+.container {
+  padding: 15px 30px;
+  position: relative;
+  background: inherit;
+  width: 50%;
+}
+
+.container.left {
+  left: 0;
+}
+
+.container.right {
+  left: 50%;
+}
+
+.container::after {
+  content: '';
+  position: absolute;
+  width: 16px;
+  height: 16px;
+  top: calc(50% - 8px);
+  right: -8px;
+  background: #000000;
+  border: 2px solid #ff3cac;
+  border-radius: 16px;
+  z-index: 1;
+}
+
+.container.right::after {
+  left: -8px;
+}
+
+.container::before {
+  content: '';
+  position: absolute;
+  width: 50px;
+  height: 2px;
+  top: calc(50% - 1px);
+  right: 8px;
+  background: rgb(0, 0, 0);
+  z-index: 1;
+}
+
+.container.right::before {
+  left: 8px;
+}
+
+.container .goals {
+  position: absolute;
+  display: inline-block;
+  top: calc(50% - 8px);
+  text-align: center;
+  font-size: 14px;
+  font-weight: 1000;
+  color: rgb(0, 0, 0);
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  z-index: 1;
+  font-family: Arial, Helvetica, sans-serif;
+}
+
+.container.left .goals {
+  right: -75px;
+}
+
+.container.right .goals {
+  left: -75px;
+}
+
+
+
+
+
+
+.container .content {
+  padding: 30px 90px 30px 30px;
+  background: black;
+  position: relative;
+  border-radius: 0 500px 500px 0;
+}
+
+.container.right .content {
+  padding: 30px 30px 30px 90px;
+  border-radius: 500px 0 0 500px;
+}
+
+.container .content h2 {
+  margin: 0 0 10px 0;
+  font-size: 25px;
+  font-weight: 1000;
+  font-family: Arial, Geneva, Tahoma, sans-serif;
+  color: #2b86c5;
+}
+
+.container .content p {
+  margin: 0;
+  font-size: 16px;
+  font-family:  Geneva, Tahoma, sans-serif;
+  line-height: 22px;
+  color: white;
+}
+@media (max-width: 767.98px) {
+  .goalline::after {
+    left: 90px;
+  }
+  .container {
+    width: 100%;
+    padding-left: 120px;
+    padding-right: 30px;
+  }
+
+  .container.right {
+    left: 0%;
+  }
+
+  .container.left::after, 
+  .container.right::after {
+    left: 82px;
+  }
+
+  .container.left::before,
+  .container.right::before {
+    left: 100px;
+    border-color: transparent #000000 transparent transparent;
+  }
+
+  .container.left .goals,
+  .container.right .goals {
+    right: auto;
+    left: 15px;
+  }
+
+  .container.left .content,
+  .container.right .content {
+    padding: 30px 30px 30px 90px;
+    border-radius: 500px 0 0 500px;
+  }
+}
