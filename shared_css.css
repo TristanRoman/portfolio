@@ -13,28 +13,52 @@ body{
     margin-top: 10vh;
     color: white;
 }
-/*navbar styling*/
-.navbar {
-    overflow: hidden;
-    background-color: black;
-    position: fixed; /* Set the navbar to fixed position */
-    top: 0; /* Position the navbar at the top of the page */
-    width: 100%; /* Full width */
-    z-index: 9999;
-  }
-  .navbar a {
-    float: left;
-    display: block;
-    color: #f2f2f2;
-    text-align: center;
-    padding: 14px 16px;
-    text-decoration: none;
-    font-family: Verdana, Geneva, Tahoma, sans-serif;
-    font-weight: 1000;
-  }
-  
-  /* Change background on mouse-over */
-  .navbar a:hover {
-    background: #ddd;
-    color: black;
-  }
+
+
+/*-----------------------------------------------*/
+/* offset page so fixed nav doesn't cover content */
+html, body { margin: 0; }
+body { padding-top: 56px; }
+
+/* NAV BAR (fixed, black) */
+.navbar{
+  position: fixed; top: 0; left: 0; width: 100%;
+  z-index: 9999;
+
+  display: flex; align-items: center;
+  padding: 0 20px; height: 56px;
+
+  background: #000;                 /* black bar */
+  border-bottom: 1px solid #3a3a3a; /* subtle rule */
+}
+
+/* Links (evenly spaced) */
+.navbar a{
+  flex: 1 1 0;                      /* spread links across bar */
+  display: block;
+  text-align: center;
+  text-decoration: none;
+  color: #f2f2f2;
+  padding: 0.75rem 0.5rem;
+  font-family: Verdana, Geneva, Tahoma, sans-serif;
+  font-weight: 700;
+  border-bottom: 0 solid transparent; /* space for active underline */
+}
+
+/* Purple hover/focus */
+.navbar a:hover,
+.navbar a:focus-visible{
+  background: #7c3aed;  /* purple */
+  color: #fff;
+}
+
+/* Current page indicator (optional) */
+.navbar a.active,
+.navbar a[aria-current="page"]{
+  border-bottom: 0.4em solid #7c3aed;           /* purple tab */
+  padding-bottom: calc(0.75rem - 0.4em);        /* keep row height steady */
+}
+
+
+
+
