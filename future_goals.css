@@ -177,3 +177,7 @@
     border-radius: 500px 0 0 500px;
   }
 }
+
+nav a.current {
+  text-decoration: underline;  /* or color, bold, etc. */
+}

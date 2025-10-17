@@ -20,5 +20,8 @@
     width: 80vw;
 }
 
+nav a.current {
+  text-decoration: underline;  /* or color, bold, etc. */
+}
 
   

@@ -1,64 +1,108 @@
-/*This holds ll shared css styling between the various html pages*/
-body{
-    margin: 0px;
-    background-color: #f8f8ff;
-    font: 100%/1.5 system-ui;
-}
-/*Used to style the heading on the subpages*/
-.top_heading{
-    font-family:Arial, Helvetica, sans-serif;
-    font-size: 4em;
-    font-weight: 1000;
-    text-align: center;
-    margin-top: 10vh;
-    color: white;
+/* =========================
+   Global tokens + dark mode
+   ========================= */
+:root{
+  --surface: canvas;                                   /* page/section bg   */
+  --text: canvastext;                                  /* text color        */
+  --panel: color-mix(in oklch, canvas, canvastext 6%); /* subtle card bg    */
+  --border-color: oklch(50% 10% 200 / 40%);            /* subtle border     */
+  --accent: var(--color-accent, oklch(65% 0.12 250));  /* fallback accent   */
 }
 
+html { color-scheme: light dark; }
+body { background: canvas; color: canvastext; }
 
-/*-----------------------------------------------*/
-/* offset page so fixed nav doesn't cover content */
+/* Basic reset */
 html, body { margin: 0; }
-body { padding-top: 56px; }
+body { font: 100%/1.5 system-ui; }
 
-/* NAV BAR (fixed, black) */
-.navbar{
-  position: fixed; top: 0; left: 0; width: 100%;
-  z-index: 9999;
-
-  display: flex; align-items: center;
-  padding: 0 20px; height: 56px;
-
-  background: #000;                 /* black bar */
-  border-bottom: 1px solid #3a3a3a; /* subtle rule */
+/* Optional shared heading style used on subpages */
+.top_heading{
+  font-family: Arial, Helvetica, sans-serif;
+  font-size: 4em;
+  font-weight: 1000;
+  text-align: center;
+  margin-top: 10vh;
+  color: var(--text);
 }
 
-/* Links (evenly spaced) */
+/* =========================
+   Navbar (STICKY)
+   ========================= */
+.navbar{
+  position: sticky;        /* <-- stays at top when scrolling */
+  top: 0;
+  z-index: 1000;
+
+  display: flex;
+  align-items: center;
+  justify-content: space-evenly;
+  height: 56px;
+
+  /* reserve space for the theme switcher at right */
+  padding: 0 20px;
+  padding-right: 9.5rem;   /* tweak 8–11rem if needed */
+  box-sizing: border-box;  /* avoid overflow from padding */
+
+  background: #000;                           /* your black bar */
+  border-bottom: 1px solid var(--border-color);
+}
+
+/* Nav links */
 .navbar a{
-  flex: 1 1 0;                      /* spread links across bar */
-  display: block;
-  text-align: center;
   text-decoration: none;
   color: #f2f2f2;
   padding: 0.75rem 0.5rem;
   font-family: Verdana, Geneva, Tahoma, sans-serif;
   font-weight: 700;
-  border-bottom: 0 solid transparent; /* space for active underline */
 }
 
-/* Purple hover/focus */
+/* Hover/focus (adaptive) */
 .navbar a:hover,
 .navbar a:focus-visible{
-  background: #7c3aed;  /* purple */
-  color: #fff;
+  background: color-mix(in oklch, var(--accent), canvas 85%);
+  color: canvastext;
 }
 
-/* Current page indicator (optional) */
-.navbar a.active,
+/* “current page” helpers */
+nav a.current { text-decoration: underline; font-weight: 700; }
 .navbar a[aria-current="page"]{
-  border-bottom: 0.4em solid #7c3aed;           /* purple tab */
-  padding-bottom: calc(0.75rem - 0.4em);        /* keep row height steady */
+  border-bottom: 0.4em solid #7c3aed;            /* or use var(--accent) */
+  padding-bottom: calc(0.75rem - 0.4em);
 }
 
+/* =========================
+   Theme switcher (inside nav)
+   ========================= */
+.navbar { position: relative; } /* anchor for absolute child */
 
+label.color-scheme{
+  position: absolute;
+  right: 12px;
+  top: 50%;
+  transform: translateY(-50%);
+  font-size: 80%;
+  font-family: inherit;
+  padding: .25rem .5rem;
+  border: 1px solid var(--border-color);
+  border-radius: .375rem;
+  background: color-mix(in oklch, canvas, canvastext 6%);
+  color: canvastext;
+  z-index: 10;
+}
 
+/* Make dropdown legible in dark & light */
+label.color-scheme select{
+  font: inherit;
+  color: canvastext;
+  background: color-mix(in oklch, canvas, canvastext 8%); /* closed state */
+  border: none;
+  outline: none;
+  color-scheme: light dark;  /* hint for some browsers */
+}
 
+label.color-scheme select option,
+label.color-scheme select optgroup{
+  background: canvas;        /* menu panel + items */
+  color: canvastext;
+}
