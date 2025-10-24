@@ -91,4 +91,45 @@ setColorScheme(initial);
 select.value = initial;
 select.addEventListener("input", (e) => setColorScheme(e.target.value));
 
+// global.js
+export async function fetchJSON(url) {
+  try {
+    const response = await fetch(url);
+    if (!response.ok) throw new Error(`Failed to fetch projects: ${response.statusText}`);
+    return await response.json();
+  } catch (err) {
+    console.error('Error fetching or parsing JSON data:', err);
+    return [];
+  }
+}
+
+// global.js (add after fetchJSON)
+export function renderProjects(projects, container, headingLevel = 'h3') {
+  if (!container) return;
+
+  // find or use existing <ul class="tilesWrap">
+  const ul =
+    container.matches('ul.tilesWrap')
+      ? container
+      : container.querySelector('ul.tilesWrap') || container;
+
+  ul.innerHTML = '';
+
+  projects.forEach(p => {
+    const li = document.createElement('li');
+    li.innerHTML = `
+      <h2>${p.acronym || ''}</h2>
+      <${headingLevel}>${p.title || ''}</${headingLevel}>
+      <p>${p.description || ''}</p>
+      ${p.link ? `<a href="${p.link}" target="_blank" class="view_buttons">View</a>` : ''}
+    `;
+    ul.appendChild(li);
+  });
+}
+// Fetch public GitHub user data
+export async function fetchGitHubData(username) {
+  // Reuse your fetchJSON helper
+  return fetchJSON(`https://api.github.com/users/${encodeURIComponent(username)}`);
+}
+
 

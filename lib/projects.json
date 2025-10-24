@@ -1,0 +1,98 @@
+[
+    {
+        "acronym": "PM",
+        "title": "Consumer Shopping Enhancement App: Project Charter",
+        "description": "This is a project charter undertaken by Farmer's Way to \n                        develop a web app to enhance the shopping experience of \n                        their consumers.",
+        "link": "./Project_Work/Consumer_App_Project_Charter.pdf",
+        "image": "",
+        "year": "2024"
+    },
+    {
+        "acronym": "PM",
+        "title": "Consumer Shopping Enhancement App: Project Scope",
+        "description": "This is the project scope document that details what was\n                        planned to be done for the Consumer Shopping Enhancement\n                        Application project.",
+        "link": "./Project_Work/Consumer_App_Project_Scope.pdf",
+        "image": "",
+        "year": "2024"
+    },
+    {
+        "acronym": "PM",
+        "title": "Consumer Shopping Enhancement App: Executive Presentation",
+        "description": "This is a final presentation for the Consumer Shopping \n                        Enhancement App that details its value in relation to \n                        the strategic goals of Farmer's Way.",
+        "link": "./Project_Work/Consumer_App_Presentation.pdf",
+        "image": "",
+        "year": "2024"
+    },
+    {
+        "acronym": "BC",
+        "title": "Tableau Presentation",
+        "description": "This is a presentation on Data Visualization and Tableau.",
+        "link": "./Project_Work/Tableau_Presentation.pdf",
+        "image": "",
+        "year": "2024"
+    },
+    {
+        "acronym": "BC",
+        "title": "Office Designs Presentation",
+        "description": "This is a presentation on various office designs employed\n                        in business that seek to enhance communication.",
+        "link": "./Project_Work/Office_Designs_Presentation.pdf",
+        "image": "",
+        "year": "2024"
+    },
+    {
+        "acronym": "BC",
+        "title": "Analytical Report on Firefighter Logistics",
+        "description": "This is an analytical report detailing how technology can \n                        assist in the food logistics of a newly established fire \n                        station.",
+        "link": "./Project_Work/Analytical_Report.pdf",
+        "image": "",
+        "year": "2024"
+    },
+    {
+        "acronym": "A&D",
+        "title": "Inventory Management Redesign",
+        "description": "This is an infographic detailing an inventory management \n                        redesign for Mercantil Excelsior, an international cheese \n                        distrbutor.",
+        "link": "./Project_Work/Mercantil_Excelsior_Redesign.jpg",
+        "image": "",
+        "year": "2024"
+    },
+    {
+    "acronym": "DS",
+    "title": "Customer Review Sentiment Analysis",
+    "description": "This project explores sentiment classification of product reviews \n                        using a combination of TF-IDF and Word2Vec embeddings integrated \n                        into a soft-voting ensemble of Logistic Regression and XGBoost models.",
+    "link": "./Project_Work/Sentiment_Analysis_Report.pdf",
+    "image": "",
+    "year": "2025"
+    },
+    {
+    "acronym": "ML",
+    "title": "Predictive Maintenance Model",
+    "description": "A supervised learning pipeline designed to predict equipment \n                        failure using real-time sensor data, implementing feature scaling, \n                        cross-validation, and XGBoost tuning for improved precision.",
+    "link": "./Project_Work/Predictive_Maintenance_Model.pdf",
+    "image": "",
+    "year": "2024"
+    },
+    {
+    "acronym": "AI",
+    "title": "Computer Vision Quality Control System",
+    "description": "An AI-based defect detection system trained on product images \n                        to automatically flag visual inconsistencies in manufacturing lines, \n                        using CNN architectures fine-tuned from ResNet50.",
+    "link": "./Project_Work/Computer_Vision_Quality_Control.pdf",
+    "image": "",
+    "year": "2025"
+    },
+    {
+    "acronym": "DS",
+    "title": "Data Visualization Dashboard with Tableau",
+    "description": "A dynamic Tableau dashboard created to visualize KPIs, price \n                        distributions, and consumer behavior trends across multiple retail \n                        datasets, providing executive-level insights at a glance.",
+    "link": "./Project_Work/Tableau_Data_Dashboard.pdf",
+    "image": "",
+    "year": "2023"
+    },
+    {
+    "acronym": "AI",
+    "title": "Chatbot for Insurance Lead Qualification",
+    "description": "A conversational AI agent built to automate lead intake for an \n                        insurance services platform, leveraging GPT APIs for dynamic response \n                        generation and sentiment-based intent routing.",
+    "link": "./Project_Work/Insurance_Chatbot_Lead_Qualification.pdf",
+    "image": "",
+    "year": "2025"
+    }
+]
