@@ -26,6 +26,7 @@ const PAGES = [
   { url: "future_goals.html",   title: "Future Goals" },
   { url: "https://github.com/TristanRoman/portfolio", title: "Github" },
   { url: "contact/contact.html",title: "Contact Me" },
+  { url: "project2_report.html",title: "Project 2" },
 ];
 
 // Local vs GitHub Pages base path
