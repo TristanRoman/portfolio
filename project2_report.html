@@ -1,0 +1,277 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <title>Project 2 Report</title>
+    <style>
+      :root {
+        --color-neutral-95: hsl(220 10% 95%);
+        --color-neutral-90: hsl(220 10% 90%);
+        --color-neutral-80: hsl(220 10% 80%);
+        --color-neutral-70: hsl(220 10% 70%);
+        --color-neutral-60: hsl(220 10% 60%);
+        --color-neutral-50: hsl(220 10% 50%);
+        --color-neutral-40: hsl(220 10% 40%);
+        --color-neutral-30: hsl(220 10% 30%);
+        --color-neutral-20: hsl(220 10% 20%);
+        --color-neutral-10: hsl(220 10% 10%);
+      }
+
+      html {
+        font: 100%/1.5 system-ui;
+        counter-reset: figure;
+        background: var(--color-neutral-95);
+        max-width: min(75vw, 80em);
+        margin: 0 auto;
+      }
+
+      /* Headings */
+
+      h1,
+      h2,
+      h3,
+      h4,
+      h5,
+      h6 {
+        line-height: 1.1;
+        font-weight: 600;
+        text-wrap: balance;
+      }
+
+      h1,
+      h2 {
+        border-bottom: 1px solid var(--color-neutral-80);
+        padding-bottom: 0.2em;
+      }
+
+      h1 {
+        margin-block: 1em 0.5rem;
+        font-size: clamp(2.5em, 150% + 2vh + 2vw, 10vmin);
+        font-weight: 800;
+
+        small {
+          display: block;
+          width: fit-content;
+          padding: 0.2em 0.5em;
+          margin-inline: auto;
+          color: white;
+          background: var(--color-neutral-40);
+          font-size: 40%;
+          text-transform: uppercase;
+          white-space: nowrap;
+        }
+      }
+
+      h2 {
+        font-size: 180%;
+        color: var(--color-neutral-30);
+      }
+
+      h3 {
+        font-size: 130%;
+      }
+
+      /* Lists */
+
+      ul,
+      ol {
+        padding-inline-start: 2em;
+      }
+
+      li {
+        &::marker {
+          color: var(--color-neutral-40);
+        }
+
+        + li {
+          margin-top: 0.2em;
+        }
+      }
+
+      /* Sectioning elements */
+
+      header {
+        padding-block: 1em;
+        text-align: center;
+      }
+
+      main {
+        background: white;
+        color: var(--color-neutral-20);
+        border-radius: 1rem;
+        padding: 0.1rem 2rem;
+      }
+
+      /* Figures */
+
+      figure {
+        margin: 1em 0;
+        padding: 0.5rem;
+        margin-inline: -0.5em;
+        border: 1px solid var(--color-neutral-80);
+        box-shadow: 0 0.1em 0.2em var(--color-neutral-95);
+        text-align: center;
+        background: white;
+
+        > figcaption {
+          font: 500 75% var(--font-sans);
+          background: var(--color-neutral-95);
+          padding: 0.5rem;
+          margin: -0.5rem;
+          margin-top: 0.5rem;
+          counter-increment: figure;
+          text-align: left;
+
+          &::before {
+            content: 'Figure ' counter(figure) ': ';
+            font-weight: bold;
+            color: var(--color-neutral-40);
+          }
+
+          a:not(:hover, :focus, :active) {
+            color: inherit;
+            text-decoration: underline;
+            text-decoration-color: color-mix(
+              in lab,
+              currentColor,
+              transparent 70%
+            );
+          }
+        }
+      }
+    </style>
+  </head>
+
+  <body>
+    <header>
+      <h1>
+        <small>Assignment 4</small>
+        Persuasive or Deceptive Visualization?
+      </h1>
+
+      <p><strong>Tristan Roman</strong> — <em>trroman@ucsd.edu</em></p>
+    </header>
+
+    <main>
+      <h2>Proposition: Evidence Based Police Injustice is Rising</h2>
+
+      <section>
+        <h3>FOR the Proposition</h3>
+
+        <figure>
+          <img src="Police Injustice Is Rising.png" alt="" />
+          <figcaption>This visualization reveals a growing recognition of police misconduct—substantiated cases rising over time—and shows that Black Americans and other communities of color remain disproportionately impacted.
+</figcaption>
+        </figure>
+
+        <p>Design Decisions and Rationale:</p>
+        <p>Chart 1: “Amount of Police Injustice Claims Proven to Be True”</p>
+        <ul>
+          <li>Added annotation about substantiation = “proven true” (Deceptive Score −0.5)</li>
+          <li>Added two arrows on trend lines pointing upward (Deceptive Score −0.5)</li>
+          <li>Cherry-picked timeframe: only most recent ~8 years, omitting earlier low periods (Deceptive Score −1.5)</li>
+          <li>Smoothed 3-year average – removes volatility, implying steadier improvement (Deceptive Score −1.0)</li>
+          <li>Zoomed y-axis (~0.33–0.40 range) – exaggerates small changes (Deceptive Score −1.5)</li>
+          <li>Minimal gridlines – de-emphasizes context, heightens focus on trend (Deceptive Score −0.5)</li>
+      </ul>
+        <p>Chart 2: “Black Americans Are Treated Worse by Police”</p>
+        <ul>
+          <li>Changed color of Black bar to red – emotional signaling (Deceptive Score −0.5)</li>
+          <li>Made all other bars neutral gray – creates stark contrast (Deceptive Score −0.5)</li>
+          <li>Top-group filtering – only largest four ethnicities shown (Deceptive Score −1.0)</li>
+          <li>Re-normalized percentages – inflates leading group’s share (Deceptive Score −1.0)</li>
+          <li>Tight y-axis cutoff – magnifies small differences (Deceptive Score −1.5)</li>
+          <li>Sorted bars descending – reinforces narrative hierarchy (Deceptive Score −0.5)</li>
+        </ul>
+
+      </section>
+
+      <section>
+        <h3>AGAINST the Proposition</h3>
+
+        <figure>
+          <img src="Police Injustice Is Overblown.png" alt="" />
+          <figcaption>This visualization suggests that most police complaints lack merit, with only a small share ever being proven true. Despite thousands of filings, the data from ProPublica’s Civilian Complaints Against New York City Police Officers shows that the vast majority are unsubstantiated—indicating that many accusations against officers may be exaggerated, unfounded, or false.
+</figcaption>
+        </figure>
+
+        <p>Design Decisions and Rationale:</p>
+
+        <ul>
+          <li>Used full historical range — includes earlier data that flattens recent increases, reducing perceived progress. (Deceptive Score −1.0)</li>
+          <li>Applied 100% stacked design — visually normalizes totals, minimizing absolute differences. (Deceptive Score −0.5)</li>
+          <li>Changed color contrast between “Substantiated” and “All Other” — directs focus toward non-substantiated complaints. (Deceptive Score −1.0)</li>
+          <li>Collapsed multiple categories into two simplified buckets — removes nuance, exaggerating binary outcomes. (Deceptive Score −1.5)</li>
+          <li>Flipped chart orientation compared to previous version — alters viewer framing to emphasize dominance of “All Other.” (Deceptive Score −0.5)</li>
+          <li>Adjusted color palette to highlight main takeaway (“more others than substantiated”) — reinforces one-sided interpretation. (Deceptive Score −1.0)</li>
+        </ul>
+
+      </section>
+
+      <section>
+        <h2>Final Reflection</h2>
+
+      <p>
+        This project examines how data visualization can be deliberately shaped to influence perception and strengthen or weaken a given argument. 
+        Using thousands of complaint filings from <em>ProPublica’s Civilian Complaints Against New York City Police Officers</em> dataset, 
+        I explored how subtle design and transformation choices—ranging from color and axis scaling to smoothing and categorical framing—can radically 
+        shift how an audience interprets the same underlying data. 
+        The goal was to understand how visuals can make a point feel “true” through design alone.
+      </p>
+
+      <p>
+        For the first visualization, <em>“Amount of Police Injustice Claims Proven to Be True,”</em> I employed a series of data and stylistic 
+        transformations that framed the story around growing accountability. 
+        I created a new smoothed variable using a three-year rolling average to remove short-term volatility and make the substantiation trend line appear 
+        more consistent over time. I then cherry-picked roughly the most recent eight years of data, excluding earlier periods where substantiation rates 
+        were lower—this gave the appearance of a clean, upward trajectory. 
+        To heighten this perception, I zoomed the y-axis to a tight range between roughly 0.33 and 0.40, which exaggerated minor improvements into 
+        dramatic visual jumps. Two subtle arrows were added along the trend to reinforce directionality, and minimal gridlines were used to keep attention 
+        on the movement rather than exact values. Through these transformations, the figure visually suggests meaningful progress, even though the underlying 
+        numerical change is relatively small. Each of these steps—annotation, smoothing, selective framing, and visual scaling—played a deliberate role in 
+        crafting a persuasive image of improvement.
+      </p>
+
+      <p>
+        For the second visualization, <em>“Most Complaints Against Police Are Fraud,”</em> I took the opposite approach, using similar data to convey an 
+        entirely different message. Here, I included the full historical range of records, allowing older data to flatten any recent upward trend, visually 
+        implying stagnation rather than progress. I transformed the multi-category disposition data into only two buckets—“Substantiated” and “All Other”—which 
+        simplified complexity and forced a binary interpretation. Using a 100% stacked-bar design, I normalized the totals so that every year appeared directly 
+        comparable, but this also minimized actual fluctuations in complaint volume. The color palette was intentionally chosen to emphasize “All Other” in a 
+        dominant maroon hue, while “Substantiated” was muted in gray, visually reinforcing the idea that nearly all complaints lack merit. To dramatize this 
+        further, I flipped the orientation of the chart from the previous one, so the large maroon blocks felt overwhelming and omnipresent. These design cues 
+        worked together to tell a story that most police complaints are exaggerated or false—an interpretation achieved not by falsifying data, but by altering 
+        how it was presented.
+      </p>
+
+      <p>
+        Through both visual narratives, I experimented with how <strong>color, form, structure, and context</strong> can all guide audience interpretation. 
+        In the “for” chart, I used motion, warmth, and tight framing to evoke progress and empathy. In the “against” chart, I used scale, dominance, and tonal 
+        contrast to provoke skepticism and defense. Both are persuasive—and both are manipulative in their own way.
+      </p>
+
+      <p>
+        These examples demonstrate how <strong>visual storytelling can both reveal and distort truth</strong>. 
+        Color, scale, orientation, and aggregation are powerful tools—when used responsibly, they can clarify complex realities; 
+        when abused, they can manipulate public understanding. 
+      </p>
+
+      <p>
+        A real-world risk exists in how this very dataset could be misused. 
+        For instance, someone could extract officer identifiers, complaint dates, or incident locations and cross-reference them with other public records 
+        to identify individuals—potentially leading to <strong>doxxing, harassment, or retaliation</strong>. 
+        Conversely, insufficient anonymization could expose victims or witnesses, resulting in stigmatization or safety threats. 
+        Selectively framed visuals could also be exploited to <strong>justify biased policies or suppress oversight funding</strong>, 
+        misrepresenting systemic issues as evidence of public dishonesty rather than institutional failure.
+      </p>
+
+      <p>
+        Because such misuse is possible, <strong>ethical visualization requires more than good intent</strong>. 
+        Designers and analysts must document every transformation—timeframe selections, smoothing windows, and aggregation rules—
+        and make this process transparent. Applying safeguards like minimum-group thresholds, contextual disclaimers, and open reproducibility 
+        helps prevent harm. Above all, data that challenges social norms or authority must be shared with honesty and humility, inviting scrutiny 
+        rather than silencing it. Visualizations can move people, but they should do so by <strong>illuminating truth—not weaponizing design</strong>.
+      </p>
+      </section>
+    </main>
+  </body>
+</html>
