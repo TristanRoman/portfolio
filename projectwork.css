@@ -55,4 +55,72 @@
 
 /*Most of the code below was adapted from a free resource @ the following 
   link:https://freefrontend.com/css-lists/ Author: Vikas Singh March 13, 2019*/
+/* ---------------- Lab 5 (scoped, non-invasive) ---------------- */
 
+#lab5 { contain: layout; margin-block: 1rem 2rem; }
+
+#lab5 .pie-legend {
+  display: flex;
+  align-items: center;
+  gap: 1.5rem;
+  flex-wrap: wrap;
+  margin-block: 1rem 1.5rem;
+}
+
+#lab5 #projects-pie-plot {
+  max-width: 20em;
+  margin-block: 0.5rem;
+  overflow: visible; /* so hover/selection halos won’t clip */
+}
+
+/* Legend (scoped) */
+#lab5 .legend {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(9em, 1fr));
+  gap: 0.75rem 1rem;
+  padding: 0.75rem;
+  border: 1px solid #ddd;
+  border-radius: 0.5rem;
+  flex: 1;
+  list-style: none;
+  margin: 0;
+}
+
+#lab5 .legend li {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  --color: #888; /* default; overwritten inline from JS */
+}
+
+#lab5 .legend .swatch {
+  width: 1rem;
+  height: 1rem;
+  aspect-ratio: 1 / 1;
+  border-radius: 0.25rem;
+  background: var(--color);
+}
+
+/* Interactions (scoped) */
+#lab5 #projects-pie-plot path {
+  transition: 300ms;
+  cursor: pointer;
+}
+
+/* :has has partial support; fine for progressive enhancement */
+#lab5 #projects-pie-plot:has(path:hover) path:not(:hover) {
+  opacity: 0.5;
+}
+
+/* “selected” applies to <path> and legend <li> — keep it scoped */
+#lab5 .selected {
+  --color: oklch(60% 0.45 0) !important; /* highlight */
+}
+#lab5 .selected:is(path) { fill: var(--color); }
+
+
+.sr-only {
+  position: absolute !important;
+  width: 1px; height: 1px; padding: 0; margin: -1px;
+  overflow: hidden; clip: rect(0,0,0,0); white-space: nowrap; border: 0;
+}

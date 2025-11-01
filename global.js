@@ -1,23 +1,7 @@
-/*console.log("IT’S ALIVE!");
 
-function $$(selector, context = document) {
-  return Array.from(context.querySelectorAll(selector));
-}
-
-// Step 2: automatic current-page link
-const navLinks = $$("nav a");
-
-let currentLink = navLinks.find(
-  (a) => a.host === location.host && a.pathname === location.pathname
-);
-
-if (currentLink) {
-  currentLink.classList.add("current");
-}
-*/
 console.log("IT’S ALIVE!");
 
-// Step 3 — Automatic navigation menu (concise)
+
 
 const PAGES = [
   { url: "",                    title: "Home" },
@@ -33,7 +17,7 @@ const PAGES = [
 const BASE_PATH =
   location.hostname === "localhost" || location.hostname === "127.0.0.1"
     ? "/"                 // Live Server / local
-    : "/portfolio/";      // <-- your GitHub Pages repo name
+    : "/portfolio/";      // <-- GitHub Pages repo name
 
 // Create the nav and insert at the top of <body>
 const nav = document.createElement("nav");
@@ -55,7 +39,6 @@ for (const p of PAGES) {
     a.rel = "noopener noreferrer";
   }
 
-
   // highlight current page
   a.classList.toggle(
     "current",
@@ -66,7 +49,6 @@ for (const p of PAGES) {
 }
 
 // ---------- Step 4: Dark mode switch ----------
-// After you've created/inserted `nav` and added the <a> links…
 const schemeUI = `
   <label class="color-scheme" id="theme-switcher">
     Theme:
@@ -77,7 +59,6 @@ const schemeUI = `
     </select>
   </label>
 `;
-// Put the switcher INSIDE the nav
 nav.insertAdjacentHTML("beforeend", schemeUI);
 
 const select = document.querySelector("#color-scheme-select");
@@ -92,7 +73,8 @@ setColorScheme(initial);
 select.value = initial;
 select.addEventListener("input", (e) => setColorScheme(e.target.value));
 
-// global.js
+// ------------------ Data helpers ------------------
+
 export async function fetchJSON(url) {
   try {
     const response = await fetch(url);
@@ -104,33 +86,81 @@ export async function fetchJSON(url) {
   }
 }
 
-// global.js (add after fetchJSON)
+/**
+ * Render an array of project objects into a container (usually a <ul class="tilesWrap">).
+ * Shows title, description, and YEAR (if present).
+ * @param {Array<Object>} projects
+ * @param {HTMLElement} container  ul.tilesWrap or a parent that contains one
+ * @param {string} headingLevel    e.g., 'h2'|'h3'
+ */
 export function renderProjects(projects, container, headingLevel = 'h3') {
   if (!container) return;
 
-  // find or use existing <ul class="tilesWrap">
-  const ul =
-    container.matches('ul.tilesWrap')
-      ? container
-      : container.querySelector('ul.tilesWrap') || container;
+  // Find an existing <ul class="tilesWrap"> inside the container
+  let ul = container.matches('ul.tilesWrap')
+    ? container
+    : container.querySelector('ul.tilesWrap');
 
+  // If none exists, create one (DON'T wipe the container!)
+  if (!ul) {
+    ul = document.createElement('ul');
+    ul.className = 'tilesWrap';
+    container.appendChild(ul);
+  }
+
+  // Rebuild the list items
   ul.innerHTML = '';
 
-  projects.forEach(p => {
+  (projects || []).forEach((p) => {
     const li = document.createElement('li');
-    li.innerHTML = `
-      <h2>${p.acronym || ''}</h2>
-      <${headingLevel}>${p.title || ''}</${headingLevel}>
-      <p>${p.description || ''}</p>
-      ${p.link ? `<a href="${p.link}" target="_blank" class="view_buttons">View</a>` : ''}
-    `;
+
+    // Optional acronym header
+    if (p.acronym) {
+      const h2 = document.createElement('h2');
+      h2.textContent = p.acronym;
+      li.appendChild(h2);
+    }
+
+    // Title
+    const title = document.createElement(headingLevel);
+    title.className = 'project-title';
+    title.textContent = p.title || '';
+    li.appendChild(title);
+
+    // Description
+    const desc = document.createElement('p');
+    desc.className = 'project-desc';
+    desc.textContent = p.description || '';
+    li.appendChild(desc);
+
+    // Year
+    if (p.year) {
+      const yr = document.createElement('p');
+      yr.className = 'project-year';
+      yr.style.cssText = 'color:#666;font-variant-numeric:oldstyle-nums;';
+      yr.textContent = String(p.year);
+      li.appendChild(yr);
+    }
+
+    // Link button (supports p.link or p.url)
+    const linkHref = p.link || p.url;
+    if (linkHref) {
+      const a = document.createElement('a');
+      a.href = linkHref;
+      a.target = '_blank';
+      a.rel = 'noopener noreferrer';
+      a.className = 'view_buttons';
+      a.textContent = 'View';
+      li.appendChild(a);
+    }
+
     ul.appendChild(li);
   });
 }
+
 // Fetch public GitHub user data
 export async function fetchGitHubData(username) {
-  // Reuse your fetchJSON helper
   return fetchJSON(`https://api.github.com/users/${encodeURIComponent(username)}`);
 }
 
-
+/* No stray top-level code here. */
