@@ -5,12 +5,31 @@
   <meta name="viewport" content="width=device-width,initial-scale=1" />
   <title>Meta</title>
 
-  <!-- Removed external CSS link to prevent MIME/404 errors -->
+  <!-- I linked the shared site CSS and the page CSS here so the nav and global styles load before the page renders -->
+  <link rel="stylesheet" href="../shared_css.css">
+  <link rel="stylesheet" href="../index_css.css">
+  <!-- I load the nav/menu builder here with defer so it runs after HTML is parsed but before the page is interacted with -->
+  <script type="module" src="../global.js" defer></script>
 
   <style>
-    /* --- Minimal styles for the lab --- */
+    /* I reset body margins so the layout hugs the viewport edges consistently */
+    body { margin: 0; }
 
-    /* Summary stats */
+    /* I constrained the content width and centered it so the chart and stats don’t stretch too wide on large screens */
+    .container{
+      max-width: 1100px;
+      margin: 24px auto;
+      padding: 0 16px;
+    }
+
+    /* I added small vertical rhythm so summary and chart don’t collide */
+    #stats{ margin-bottom: 16px; }
+    #chart{ margin-top: 8px; }
+
+    /* I softened gridlines so they guide the eye without overpowering the data */
+    .gridlines line{ opacity: .12; }
+
+    /* I used a 2-column definition list so labels align tight and values breathe */
     .stats {
       display: grid;
       grid-template-columns: max-content 1fr;
@@ -18,43 +37,33 @@
       margin: 2rem 0;
       font-size: clamp(1rem, 1.2vw + .7rem, 1.25rem);
     }
-    .stats dt {
-      opacity: .6;
-      font-weight: 500;
-    }
-    .stats dd {
-      margin: 0 0 .4rem 0;
-      font-weight: 600;
-    }
+    /* I dimmed labels and kept values heavier to emphasize the numbers */
+    .stats dt { opacity: .6; font-weight: 500; }
+    .stats dd { margin: 0 0 .4rem 0; font-weight: 600; }
 
-    /* Chart area */
-    #chart svg {
-      width: 100%;
-      height: auto;
-      overflow: visible;
-    }
-    .gridlines line {
-      stroke: currentColor;
-      opacity: .15;
-    }
+    /* I made the SVG responsive so it scales with the container */
+    #chart svg { width: 100%; height: auto; overflow: visible; }
 
-    /* Dots */
+    /* I restated gridline stroke so it inherits text color and stays subtle */
+    .gridlines line { stroke: currentColor; opacity: .15; }
+
+    /* I added a gentle hover scale and proper transform origin so dots feel alive but stay centered */
     circle {
       transition: 200ms;
       transform-origin: center;
       transform-box: fill-box;
       pointer-events: all;
     }
-    circle:hover {
-      transform: scale(1.15);
-    }
+    circle:hover { transform: scale(1.15); }
+
+    /* I recolored selected dots and added a faint stroke so brushing feedback is obvious */
     circle.selected {
       fill: #ff6b6b;
       stroke: #000;
       stroke-opacity: .25;
     }
 
-    /* Tooltip */
+    /* I styled the tooltip as a small card so details are readable without blocking too much */
     dl.info {
       display: grid;
       grid-template-columns: max-content 1fr;
@@ -68,18 +77,13 @@
       backdrop-filter: saturate(1.2) blur(4px);
       transition: opacity .5s, visibility .5s;
     }
-    .tooltip {
-      position: fixed;
-      top: 1rem;
-      left: 1rem;
-      z-index: 5;
-    }
-    dl.info[hidden]:not(:hover,:focus-within) {
-      opacity: 0;
-      visibility: hidden;
-    }
+    /* I positioned the tooltip at the viewport level so it can follow the cursor cleanly */
+    .tooltip { position: fixed; top: 1rem; left: 1rem; z-index: 5; }
 
-    /* Brush selection rectangle (fun, optional) */
+    /* I hide the tooltip via the hidden attribute so it fades instead of popping */
+    dl.info[hidden]:not(:hover,:focus-within) { opacity: 0; visibility: hidden; }
+
+    /* I used a marching-ants animation on the brush so the selection is easy to spot */
     @keyframes marching-ants { to { stroke-dashoffset: -8; } }
     .selection {
       fill-opacity: .08;
@@ -95,15 +99,15 @@
     <h1>Meta</h1>
     <p>This page includes stats about the code of this website.</p>
 
-    <!-- Step 1: Summary stats -->
+    <!-- I render the summary metrics here so viewers get the big picture first -->
     <section id="stats"></section>
 
-    <!-- Step 2: Scatter plot -->
+    <!-- I follow with the time-of-day scatter so patterns over time are easy to see -->
     <h2>Commits by time of day</h2>
     <p id="selection-count" style="opacity:.8">No commits selected</p>
     <div id="chart"></div>
 
-    <!-- Step 3: Tooltip -->
+    <!-- I placed a reusable tooltip here so hovering dots reveals commit details -->
     <dl id="commit-tooltip" class="info tooltip" hidden>
       <dt>Commit</dt><dd><a id="commit-link" href="" target="_blank" rel="noopener"></a></dd>
       <dt>Date</dt><dd id="commit-date"></dd>
@@ -112,11 +116,12 @@
       <dt>Lines</dt><dd id="commit-lines"></dd>
     </dl>
 
-    <!-- Step 5.6: Language breakdown -->
+    <!-- I reserved a stats block here so brushing the chart can summarize languages -->
     <h3>Language breakdown</h3>
     <dl id="language-breakdown" class="stats"></dl>
   </main>
 
+  <!-- I load the page logic as an ES module so we can use modern imports and top-level await -->
   <script type="module" src="./main.js"></script>
 </body>
 </html>
