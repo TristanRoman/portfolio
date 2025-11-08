@@ -1,0 +1,122 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Meta</title>
+
+  <!-- Removed external CSS link to prevent MIME/404 errors -->
+
+  <style>
+    /* --- Minimal styles for the lab --- */
+
+    /* Summary stats */
+    .stats {
+      display: grid;
+      grid-template-columns: max-content 1fr;
+      gap: .2rem 1rem;
+      margin: 2rem 0;
+      font-size: clamp(1rem, 1.2vw + .7rem, 1.25rem);
+    }
+    .stats dt {
+      opacity: .6;
+      font-weight: 500;
+    }
+    .stats dd {
+      margin: 0 0 .4rem 0;
+      font-weight: 600;
+    }
+
+    /* Chart area */
+    #chart svg {
+      width: 100%;
+      height: auto;
+      overflow: visible;
+    }
+    .gridlines line {
+      stroke: currentColor;
+      opacity: .15;
+    }
+
+    /* Dots */
+    circle {
+      transition: 200ms;
+      transform-origin: center;
+      transform-box: fill-box;
+      pointer-events: all;
+    }
+    circle:hover {
+      transform: scale(1.15);
+    }
+    circle.selected {
+      fill: #ff6b6b;
+      stroke: #000;
+      stroke-opacity: .25;
+    }
+
+    /* Tooltip */
+    dl.info {
+      display: grid;
+      grid-template-columns: max-content 1fr;
+      gap: .25rem .75rem;
+      margin: 0;
+      padding: .8rem 1rem;
+      background: rgba(255,255,255,.9);
+      color: #111;
+      border-radius: .5rem;
+      box-shadow: 0 10px 30px rgba(0,0,0,.12);
+      backdrop-filter: saturate(1.2) blur(4px);
+      transition: opacity .5s, visibility .5s;
+    }
+    .tooltip {
+      position: fixed;
+      top: 1rem;
+      left: 1rem;
+      z-index: 5;
+    }
+    dl.info[hidden]:not(:hover,:focus-within) {
+      opacity: 0;
+      visibility: hidden;
+    }
+
+    /* Brush selection rectangle (fun, optional) */
+    @keyframes marching-ants { to { stroke-dashoffset: -8; } }
+    .selection {
+      fill-opacity: .08;
+      stroke: black;
+      stroke-opacity: .6;
+      stroke-dasharray: 5 3;
+      animation: marching-ants 2s linear infinite;
+    }
+  </style>
+</head>
+<body>
+  <main class="container">
+    <h1>Meta</h1>
+    <p>This page includes stats about the code of this website.</p>
+
+    <!-- Step 1: Summary stats -->
+    <section id="stats"></section>
+
+    <!-- Step 2: Scatter plot -->
+    <h2>Commits by time of day</h2>
+    <p id="selection-count" style="opacity:.8">No commits selected</p>
+    <div id="chart"></div>
+
+    <!-- Step 3: Tooltip -->
+    <dl id="commit-tooltip" class="info tooltip" hidden>
+      <dt>Commit</dt><dd><a id="commit-link" href="" target="_blank" rel="noopener"></a></dd>
+      <dt>Date</dt><dd id="commit-date"></dd>
+      <dt>Time</dt><dd id="commit-time"></dd>
+      <dt>Author</dt><dd id="commit-author"></dd>
+      <dt>Lines</dt><dd id="commit-lines"></dd>
+    </dl>
+
+    <!-- Step 5.6: Language breakdown -->
+    <h3>Language breakdown</h3>
+    <dl id="language-breakdown" class="stats"></dl>
+  </main>
+
+  <script type="module" src="./main.js"></script>
+</body>
+</html>
