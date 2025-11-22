@@ -94,5 +94,13 @@
     "link": "./Project_Work/Insurance_Chatbot_Lead_Qualification.pdf",
     "image": "",
     "year": "2025"
+    },
+     {
+  "acronym": "DS",
+  "title": "Bikewatching – Bluebikes Traffic Map",
+  "description": "Interactive geospatial visualization of Boston–Cambridge Bluebikes traffic using Mapbox GL JS and D3, with bike lanes, station markers sized by traffic, and a time slider plus legend for arrivals vs. departures.",
+  "link": "https://tristanroman.github.io/bikewatching/",
+  "image": "",
+  "year": "2025"
     }
 ]

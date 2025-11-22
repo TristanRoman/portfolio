@@ -1,6 +1,18 @@
 import * as d3 from 'https://cdn.jsdelivr.net/npm/d3@7.9.0/+esm';
+import scrollama from 'https://cdn.jsdelivr.net/npm/scrollama@3.2.0/+esm';
 
-/* I load and parse the CSV from elocuent so numbers are numeric and dates are Date objects */
+// Lab 8: shared state for filtering + scrollytelling
+let rawData;
+let allCommits = [];
+
+let commitProgress = 100;
+let timeScale;
+let commitMaxTime;
+let filteredCommits = [];
+
+const colorByType = d3.scaleOrdinal(d3.schemeTableau10);
+
+/* Load + parse CSV */
 async function loadData() {
   const data = await d3.csv('loc.csv', (row) => ({
     ...row,
@@ -13,7 +25,7 @@ async function loadData() {
   return data;
 }
 
-/* I group rows by commit and build a compact commit object so the plot and tooltip have everything they need */
+/* Group by commit */
 function processCommits(data, repoUrl) {
   return d3
     .groups(data, d => d.commit)
@@ -34,14 +46,14 @@ function processCommits(data, repoUrl) {
       Object.defineProperty(ret, 'lines', {
         value: lines,
         configurable: false,
-        enumerable: false,   // I keep the raw lines off console listings so objects stay tidy
+        enumerable: false,
         writable: false,
       });
       return ret;
     });
 }
 
-/* I render the top summary so viewers get quick context about the repo */
+/* Top summary stats */
 function renderCommitInfo(data, commits) {
   const dl = d3.select('#stats').append('dl').attr('class', 'stats');
 
@@ -67,7 +79,7 @@ function renderCommitInfo(data, commits) {
   add('MAX DEPTH', d3.max(data, d => d.depth) ?? 0);
 }
 
-/* I fill the tooltip with commit details and toggle/position it during hover */
+/* Tooltip helpers */
 function renderTooltipContent(commit) {
   if (!commit) return;
   const link = document.getElementById('commit-link');
@@ -93,18 +105,16 @@ function updateTooltipPosition(event) {
   t.style.top  = `${event.clientY + pad}px`;
 }
 
-/* I draw the responsive scatter, wire up hover + brush, and route selection to the counters */
+/* Scatter plot */
 function renderScatterPlot(data, commits) {
   const chartEl = document.getElementById('chart');
 
-  // I guard against empty input so the page doesn’t throw errors
   const commitsArr = Array.isArray(commits) ? commits : [];
   if (commitsArr.length === 0) {
     d3.select('#chart').html('');
     return;
   }
 
-  // I compute a responsive size with a wide-screen aspect that still fits laptops
   const width  = Math.min(1100, chartEl.clientWidth || 1100);
   const height = Math.round(width * 0.56);
   const margin = { top: 10, right: 20, bottom: 40, left: 64 };
@@ -118,7 +128,6 @@ function renderScatterPlot(data, commits) {
     height: height - margin.top  - margin.bottom
   };
 
-  // I build the SVG once per render and keep it responsive via CSS sizing
   const svg = d3.select('#chart')
     .html('')
     .append('svg')
@@ -126,7 +135,6 @@ function renderScatterPlot(data, commits) {
       .style('width', '100%')
       .style('height', 'auto');
 
-  // I stabilize the time scale; if all commits land on one day, I pad the domain so dots don’t stack
   let xDomain = d3.extent(commitsArr, d => d.datetime);
   if (xDomain[0] && xDomain[1] && +xDomain[0] === +xDomain[1]) {
     xDomain = [new Date(xDomain[0] - 6*3600e3), new Date(xDomain[1] + 6*3600e3)];
@@ -141,19 +149,16 @@ function renderScatterPlot(data, commits) {
     .domain([0, 24])
     .range([area.bottom, area.top]);
 
-  // I scale radius by sqrt so the dot area corresponds to lines changed
   const [minLines, maxLines] = d3.extent(commitsArr, d => d.totalLines);
   const rScale = d3.scaleSqrt()
     .domain([minLines ?? 0, (maxLines ?? 1) || 1])
     .range([5, 26]);
 
-  // I draw gridlines before axes so ticks sit on top and remain crisp
   svg.append('g')
     .attr('class', 'gridlines')
     .attr('transform', `translate(${area.left},0)`)
     .call(d3.axisLeft(yScale).tickFormat('').tickSize(-area.width));
 
-  // I render axes with a readable 24h label on Y
   const xAxis = d3.axisBottom(xScale);
   const yAxis = d3.axisLeft(yScale)
     .tickFormat(d => String(d % 24).padStart(2, '0') + ':00');
@@ -166,11 +171,10 @@ function renderScatterPlot(data, commits) {
     .attr('transform', `translate(${area.left},0)`)
     .call(yAxis);
 
-  // I draw dots largest-first so big circles don’t hide small ones
   const dots = svg.append('g').attr('class', 'dots');
 
   dots.selectAll('circle')
-    .data(d3.sort(commitsArr, d => -d.totalLines))
+    .data(d3.sort(commitsArr, d => -d.totalLines), d => d.id)
     .join('circle')
       .attr('cx', d => xScale(d.datetime))
       .attr('cy', d => yScale(d.hourFrac))
@@ -191,14 +195,12 @@ function renderScatterPlot(data, commits) {
         updateTooltipVisibility(false);
       });
 
-  // I add a brush so users can lasso a region and update the stats live
   const brush = d3.brush()
     .extent([[area.left, area.top], [area.right, area.bottom]])
     .on('start brush end', brushed);
 
   svg.append('g').attr('class', 'brush').call(brush);
 
-  // I raise the dots so hover remains active even with the brush overlay
   svg.selectAll('.dots, .overlay ~ *').raise();
 
   function isCommitSelected(selection, d) {
@@ -211,23 +213,17 @@ function renderScatterPlot(data, commits) {
 
   function brushed(event) {
     const selection = event.selection;
-
-    // I paint selected dots to give immediate visual feedback
     dots.selectAll('circle').classed('selected', d => isCommitSelected(selection, d));
-
-    // I compute the selected set once and feed it to both readouts
     const selected = selection ? commitsArr.filter(d => isCommitSelected(selection, d)) : [];
     renderSelectionCount(selected);
     renderLanguageBreakdown(selected);
   }
 
-  // I show a concise selection count just under the chart title
   function renderSelectionCount(selectedCommits) {
     const el = document.querySelector('#selection-count');
     el.textContent = `${selectedCommits.length || 'No'} commits selected`;
   }
 
-  // I aggregate the lines by language/type so brushing reports a live language mix
   function renderLanguageBreakdown(selectedCommits) {
     const container = document.getElementById('language-breakdown');
 
@@ -250,13 +246,175 @@ function renderScatterPlot(data, commits) {
   }
 }
 
-/* I boot the page by loading data, shaping commits, and rendering; I also re-render on resize so the chart stays snug */
-const REPO_URL = 'https://github.com/vis-society/lab-7'; // replace with your repo if desired
+/* Unit visualization for file sizes */
+function updateFileDisplay(commitsSubset) {
+  const root = d3.select('#files');
+  if (root.empty()) return;
 
-const data    = await loadData();
-const commits = processCommits(data, REPO_URL);
+  const lines = (commitsSubset || []).flatMap(d => d.lines || []);
+  if (!lines.length) {
+    root.html('');
+    return;
+  }
 
-renderCommitInfo(data, commits);
-renderScatterPlot(data, commits);
+  let files = d3.groups(lines, d => d.file)
+    .map(([name, lines]) => ({ name, lines }))
+    .sort((a, b) => b.lines.length - a.lines.length);
 
-window.addEventListener('resize', () => renderScatterPlot(data, commits));
+  const rows = root
+    .selectAll('div')
+    .data(files, d => d.name)
+    .join(enter =>
+      enter.append('div').call(div => {
+        div.append('dt').append('code');
+        div.append('dd');
+      })
+    );
+
+  rows.select('dt > code').html(d => `
+    ${d.name}
+    <small>${d.lines.length} lines</small>
+  `);
+
+  rows.select('dd')
+    .selectAll('div.loc')
+    .data(d => d.lines)
+    .join('div')
+    .attr('class', 'loc')
+    .style('background-color', line => colorByType(line.type));
+}
+
+/* Central filter function used by slider + scrollytelling */
+function updateCommitFilter(maxTime, options = {}) {
+  if (!maxTime || !allCommits.length || !timeScale) return;
+  const { syncSlider = true } = options;
+
+  commitMaxTime = maxTime;
+  commitProgress = timeScale(commitMaxTime);
+
+  const slider = document.getElementById('commit-progress');
+  if (syncSlider && slider) {
+    slider.value = commitProgress;
+  }
+
+  const timeEl = document.getElementById('commit-filter-time');
+  if (timeEl) {
+    timeEl.textContent = commitMaxTime.toLocaleString('en', {
+      dateStyle: 'long',
+      timeStyle: 'short',
+    });
+  }
+
+  filteredCommits = allCommits.filter(d => d.datetime <= commitMaxTime);
+
+  renderScatterPlot(rawData, filteredCommits);
+  updateFileDisplay(filteredCommits);
+}
+
+/* Slider setup */
+function initCommitFiltering() {
+  if (!allCommits.length) return;
+
+  timeScale = d3.scaleTime()
+    .domain(d3.extent(allCommits, d => d.datetime))
+    .range([0, 100]);
+
+  const slider = document.getElementById('commit-progress');
+  if (slider) {
+    slider.min = 0;
+    slider.max = 100;
+    slider.step = 1;
+    slider.addEventListener('input', () => {
+      const v = +slider.value;
+      const date = timeScale.invert(v);
+      updateCommitFilter(date, { syncSlider: false });
+    });
+  }
+
+  const latest = d3.max(allCommits, d => d.datetime);
+  updateCommitFilter(latest, { syncSlider: true });
+}
+
+/* Helper to build commit narrative text (used in both scrolly sections) */
+function stepHTML(d, i) {
+  const fileCount = d3.rollups(
+    d.lines,
+    v => v.length,
+    line => line.file
+  ).length;
+
+  return `
+    On ${d.datetime.toLocaleString('en', {
+      dateStyle: 'full',
+      timeStyle: 'short',
+    })},
+    I made <a href="${d.url}" target="_blank" rel="noopener">
+      ${i > 0 ? 'another glorious commit' : 'my first glorious commit'}
+    </a>.
+    I edited ${d.totalLines} lines across ${fileCount} files.
+  `;
+}
+
+/* Scrollytelling: TOP (scatter) + BOTTOM (files) */
+function setupScrolly() {
+  if (!allCommits.length) return;
+
+  const commitsChrono = d3.sort(allCommits, d => d.datetime);
+
+  // inject steps into BOTH stories
+  d3.select('#scatter-story')
+    .selectAll('.step')
+    .data(commitsChrono)
+    .join('div')
+    .attr('class', 'step')
+    .html(stepHTML);
+
+  d3.select('#files-story')
+    .selectAll('.step')
+    .data(commitsChrono)
+    .join('div')
+    .attr('class', 'step')
+    .html(stepHTML);
+
+  // scroller for top section
+  const scroller1 = scrollama();
+  scroller1
+    .setup({
+      container: '#scrolly-1',
+      step: '#scrolly-1 .step',
+    })
+    .onStepEnter((response) => {
+      const commit = response.element.__data__;
+      if (commit && commit.datetime) {
+        updateCommitFilter(commit.datetime);
+      }
+    });
+
+  // scroller for bottom section
+  const scroller2 = scrollama();
+  scroller2
+    .setup({
+      container: '#scrolly-2',
+      step: '#scrolly-2 .step',
+    })
+    .onStepEnter((response) => {
+      const commit = response.element.__data__;
+      if (commit && commit.datetime) {
+        updateCommitFilter(commit.datetime);
+      }
+    });
+}
+
+/* Boot the page */
+const REPO_URL = 'https://github.com/vis-society/lab-7'; // or your repo
+
+rawData    = await loadData();
+allCommits = processCommits(rawData, REPO_URL);
+
+renderCommitInfo(rawData, allCommits);
+initCommitFiltering();   // slider + initial scatter + files
+setupScrolly();          // top + bottom scrollytelling
+
+window.addEventListener('resize', () => {
+  renderScatterPlot(rawData, filteredCommits.length ? filteredCommits : allCommits);
+});

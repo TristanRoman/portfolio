@@ -5,31 +5,25 @@
   <meta name="viewport" content="width=device-width,initial-scale=1" />
   <title>Meta</title>
 
-  <!-- I linked the shared site CSS and the page CSS here so the nav and global styles load before the page renders -->
+  <!-- shared site styles -->
   <link rel="stylesheet" href="../shared_css.css">
   <link rel="stylesheet" href="../index_css.css">
-  <!-- I load the nav/menu builder here with defer so it runs after HTML is parsed but before the page is interacted with -->
   <script type="module" src="../global.js" defer></script>
 
   <style>
-    /* I reset body margins so the layout hugs the viewport edges consistently */
     body { margin: 0; }
 
-    /* I constrained the content width and centered it so the chart and stats don’t stretch too wide on large screens */
     .container{
       max-width: 1100px;
       margin: 24px auto;
       padding: 0 16px;
     }
 
-    /* I added small vertical rhythm so summary and chart don’t collide */
     #stats{ margin-bottom: 16px; }
     #chart{ margin-top: 8px; }
 
-    /* I softened gridlines so they guide the eye without overpowering the data */
     .gridlines line{ opacity: .12; }
 
-    /* I used a 2-column definition list so labels align tight and values breathe */
     .stats {
       display: grid;
       grid-template-columns: max-content 1fr;
@@ -37,17 +31,12 @@
       margin: 2rem 0;
       font-size: clamp(1rem, 1.2vw + .7rem, 1.25rem);
     }
-    /* I dimmed labels and kept values heavier to emphasize the numbers */
     .stats dt { opacity: .6; font-weight: 500; }
     .stats dd { margin: 0 0 .4rem 0; font-weight: 600; }
 
-    /* I made the SVG responsive so it scales with the container */
     #chart svg { width: 100%; height: auto; overflow: visible; }
-
-    /* I restated gridline stroke so it inherits text color and stays subtle */
     .gridlines line { stroke: currentColor; opacity: .15; }
 
-    /* I added a gentle hover scale and proper transform origin so dots feel alive but stay centered */
     circle {
       transition: 200ms;
       transform-origin: center;
@@ -56,14 +45,12 @@
     }
     circle:hover { transform: scale(1.15); }
 
-    /* I recolored selected dots and added a faint stroke so brushing feedback is obvious */
     circle.selected {
       fill: #ff6b6b;
       stroke: #000;
       stroke-opacity: .25;
     }
 
-    /* I styled the tooltip as a small card so details are readable without blocking too much */
     dl.info {
       display: grid;
       grid-template-columns: max-content 1fr;
@@ -77,13 +64,9 @@
       backdrop-filter: saturate(1.2) blur(4px);
       transition: opacity .5s, visibility .5s;
     }
-    /* I positioned the tooltip at the viewport level so it can follow the cursor cleanly */
     .tooltip { position: fixed; top: 1rem; left: 1rem; z-index: 5; }
-
-    /* I hide the tooltip via the hidden attribute so it fades instead of popping */
     dl.info[hidden]:not(:hover,:focus-within) { opacity: 0; visibility: hidden; }
 
-    /* I used a marching-ants animation on the brush so the selection is easy to spot */
     @keyframes marching-ants { to { stroke-dashoffset: -8; } }
     .selection {
       fill-opacity: .08;
@@ -92,6 +75,109 @@
       stroke-dasharray: 5 3;
       animation: marching-ants 2s linear infinite;
     }
+
+    /* Top scrollytelling: text LEFT, scatter RIGHT */
+    #scrolly-1 {
+      position: relative;
+      display: flex;
+      gap: 1.5rem;
+      margin-top: 1.5rem;
+      /* NOTE: no row-reverse here – we want text left, chart right */
+    }
+    #scrolly-1 > * {
+      flex: 1;
+    }
+    #scatter-story {
+      position: relative;
+    }
+    #scatter-plot {
+      position: sticky;
+      top: 1rem;
+      left: 0;
+      bottom: auto;
+      height: 50vh;
+      align-self: flex-start;
+    }
+    #scatter-story .step {
+      padding-bottom: 60vh;
+    }
+
+    /* Bottom scrollytelling: files LEFT, text RIGHT */
+    #scrolly-2 {
+      position: relative;
+      display: flex;
+      gap: 1.5rem;
+      margin-top: 3rem;
+    }
+    #scrolly-2 > * {
+      flex: 1;
+    }
+    #files-plot {
+      position: sticky;
+      top: 1rem;
+      align-self: flex-start;
+    }
+    #files-story .step {
+      padding-bottom: 60vh;
+    }
+
+    /* Unit viz layout (same as shared, but local so meta works standalone) */
+    #files {
+      display: grid;
+      grid-template-columns: 1fr 4fr;
+      gap: .35rem .75rem;
+      margin: 0 0 3rem;
+    }
+    #files > div {
+      grid-column: 1 / -1;
+      display: grid;
+      grid-template-columns: subgrid;
+    }
+    #files dt {
+      grid-column: 1;
+      margin: 0;
+      font-weight: 500;
+    }
+    #files dd {
+      grid-column: 2;
+      margin: 0;
+      display: flex;
+      flex-wrap: wrap;
+      align-items: flex-start;
+      align-content: flex-start;
+      gap: .15em;
+      padding-top: .4em;
+    }
+    #files dt code small {
+      display: block;
+      font-size: .75rem;
+      opacity: .6;
+    }
+    .loc {
+      width: .5em;
+      aspect-ratio: 1;
+      border-radius: 999px;
+      background: steelblue;
+      flex-shrink: 0;
+    }
+
+    .time-filter {
+      display: flex;
+      align-items: center;
+      gap: .5rem;
+      margin: .5rem 0 1rem;
+      font-size: .95rem;
+    }
+    .time-filter label {
+      display: flex;
+      align-items: center;
+      gap: .5rem;
+    }
+    .time-filter time {
+      margin-left: auto;
+      opacity: .8;
+      font-size: .85rem;
+    }
   </style>
 </head>
 <body>
@@ -99,29 +185,60 @@
     <h1>Meta</h1>
     <p>This page includes stats about the code of this website.</p>
 
-    <!-- I render the summary metrics here so viewers get the big picture first -->
     <section id="stats"></section>
 
-    <!-- I follow with the time-of-day scatter so patterns over time are easy to see -->
-    <h2>Commits by time of day</h2>
-    <p id="selection-count" style="opacity:.8">No commits selected</p>
-    <div id="chart"></div>
+    <!-- TOP: commits over time – story LEFT, scatter RIGHT -->
+    <div id="scrolly-1">
+      <div id="scatter-story">
+        <!-- steps injected by main.js -->
+      </div>
 
-    <!-- I placed a reusable tooltip here so hovering dots reveals commit details -->
-    <dl id="commit-tooltip" class="info tooltip" hidden>
-      <dt>Commit</dt><dd><a id="commit-link" href="" target="_blank" rel="noopener"></a></dd>
-      <dt>Date</dt><dd id="commit-date"></dd>
-      <dt>Time</dt><dd id="commit-time"></dd>
-      <dt>Author</dt><dd id="commit-author"></dd>
-      <dt>Lines</dt><dd id="commit-lines"></dd>
-    </dl>
+      <div id="scatter-plot">
+        <h2>Commits by time of day</h2>
 
-    <!-- I reserved a stats block here so brushing the chart can summarize languages -->
-    <h3>Language breakdown</h3>
-    <dl id="language-breakdown" class="stats"></dl>
+        <div class="time-filter">
+          <label for="commit-progress">
+            Show commits until:
+            <input
+              id="commit-progress"
+              type="range"
+              min="0"
+              max="100"
+              value="100"
+            />
+          </label>
+          <time id="commit-filter-time"></time>
+        </div>
+
+        <p id="selection-count" style="opacity:.8">No commits selected</p>
+        <div id="chart"></div>
+
+        <dl id="commit-tooltip" class="info tooltip" hidden>
+          <dt>Commit</dt><dd><a id="commit-link" href="" target="_blank" rel="noopener"></a></dd>
+          <dt>Date</dt><dd id="commit-date"></dd>
+          <dt>Time</dt><dd id="commit-time"></dd>
+          <dt>Author</dt><dd id="commit-author"></dd>
+          <dt>Lines</dt><dd id="commit-lines"></dd>
+        </dl>
+
+        <h3>Language breakdown</h3>
+        <dl id="language-breakdown" class="stats"></dl>
+      </div>
+    </div>
+
+    <!-- BOTTOM: files over time – files LEFT, same story RIGHT -->
+    <div id="scrolly-2">
+      <div id="files-plot">
+        <h2>Files over time</h2>
+        <dl id="files"></dl>
+      </div>
+      <div id="files-story">
+        <!-- same commit steps injected here -->
+      </div>
+    </div>
+
   </main>
 
-  <!-- I load the page logic as an ES module so we can use modern imports and top-level await -->
   <script type="module" src="./main.js"></script>
 </body>
 </html>
