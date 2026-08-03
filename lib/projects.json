@@ -56,14 +56,6 @@
         "year": "2024"
     },
     {
-    "acronym": "DS",
-    "title": "Customer Review Sentiment Analysis",
-    "description": "This project explores sentiment classification of product reviews \n                        using a combination of TF-IDF and Word2Vec embeddings integrated \n                        into a soft-voting ensemble of Logistic Regression and XGBoost models.",
-    "link": "./Project_Work/Sentiment_Analysis_Report.pdf",
-    "image": "",
-    "year": "2025"
-    },
-    {
     "acronym": "ML",
     "title": "Predictive Maintenance Model",
     "description": "A supervised learning pipeline designed to predict equipment \n                        failure using real-time sensor data, implementing feature scaling, \n                        cross-validation, and XGBoost tuning for improved precision.",
@@ -80,14 +72,6 @@
     "year": "2025"
     },
     {
-    "acronym": "DS",
-    "title": "Data Visualization Dashboard with Tableau",
-    "description": "A dynamic Tableau dashboard created to visualize KPIs, price \n                        distributions, and consumer behavior trends across multiple retail \n                        datasets, providing executive-level insights at a glance.",
-    "link": "./Project_Work/Tableau_Data_Dashboard.pdf",
-    "image": "",
-    "year": "2023"
-    },
-    {
     "acronym": "AI",
     "title": "Chatbot for Insurance Lead Qualification",
     "description": "A conversational AI agent built to automate lead intake for an \n                        insurance services platform, leveraging GPT APIs for dynamic response \n                        generation and sentiment-based intent routing.",
@@ -97,10 +81,58 @@
     },
      {
   "acronym": "DS",
-  "title": "Bikewatching – Bluebikes Traffic Map",
-  "description": "Interactive geospatial visualization of Boston–Cambridge Bluebikes traffic using Mapbox GL JS and D3, with bike lanes, station markers sized by traffic, and a time slider plus legend for arrivals vs. departures.",
+  "title": "Bikewatching: Bluebikes Traffic Map",
+  "description": "Geospatial visualization of Boston/Cambridge bike traffic pairing a Mapbox base map with a D3 SVG overlay. Proportional station markers and a full-day time slider reveal how stations shift between departure and arrival hubs across commuting hours.\n                        Mapbox GL JS · D3.js · geospatial visualization · temporal filtering",
   "link": "https://tristanroman.github.io/bikewatching/",
   "image": "",
+  "year": "2026"
+    },
+    {
+  "acronym": "DS",
+  "title": "Early-Match Advantage in Professional League of Legends",
+  "description": "Predicts match winners from the first ten minutes of play using 144,780 records from the 2022 Oracle's Elixir dataset. Tuned logistic regression with engineered early-game features (KDA, gold per CS, combat intensity) reached 83.96% accuracy and 0.9061 ROC-AUC, with permutation testing confirming no side-based fairness gap.\n                        Python · pandas · scikit-learn · Plotly · hypothesis testing · model fairness",
+  "link": "https://tristanroman.github.io/league-match-analysis/",
+  "image": "",
   "year": "2025"
+    },
+    {
+  "acronym": "DS",
+  "title": "Large-Scale Steam Review Sentiment Analysis",
+  "description": "Distributed NLP pipeline classifying review sentiment across 113M raw reviews (50+ GB), processed on the SDSC Expanse supercomputer after Parquet conversion. TF-IDF features and a tuned random forest on 36M cleaned reviews reached ~70% accuracy on a class-balanced task.\n                        PySpark · Spark ML · Parquet · TF-IDF · distributed computing",
+  "link": "https://github.com/TristanRoman/Steam-Reviews-Sentiment-Analysis",
+  "image": "",
+  "year": "2025"
+    },
+    {
+  "acronym": "DS",
+  "title": "NETCLIX: Interactive Recommendation Explainer",
+  "description": "Netflix-styled visualization that teaches how recommender systems work — walking users through ratings matrices, sparsity, user similarity, Jaccard overlap, and collaborative filtering via an interactive heatmap, Venn diagram, and guided tour.\n                        JavaScript · D3.js · SVG · Venn.js · narrative visualization",
+  "link": "https://tristanroman.github.io/Final-Project/",
+  "image": "",
+  "year": "2025"
+    },
+    {
+  "acronym": "DS",
+  "title": "Forecasting Nonprofit Donor Retention (Capstone)",
+  "description": "Operational ML pipeline scoring each Curebound donor's probability of lapsing, built on 221K+ Salesforce CRM transactions (2013–2026). Leakage-safe temporal design and a calibrated XGBoost model hit 0.754 AUPRC; targeting the top 1,000 riskiest donors captured ~79% precision and 1.26× lift over random outreach.\n                        Python · SQL · XGBoost · Platt calibration · AUPRC · temporal validation",
+  "link": "./Project_Work/Donor%20Retention%20Capstone.pdf",
+  "image": "",
+  "year": "2026"
+    },
+    {
+    "acronym": "DS",
+    "title": "Customer Review Sentiment Analysis",
+    "description": "This project explores sentiment classification of product reviews \n                        using a combination of TF-IDF and Word2Vec embeddings integrated \n                        into a soft-voting ensemble of Logistic Regression and XGBoost models.",
+    "link": "",
+    "image": "",
+    "year": "2025"
+    },
+    {
+    "acronym": "DS",
+    "title": "Data Visualization Dashboard with Tableau",
+    "description": "A dynamic Tableau dashboard created to visualize KPIs, price \n                        distributions, and consumer behavior trends across multiple retail \n                        datasets, providing executive-level insights at a glance.",
+    "link": "",
+    "image": "",
+    "year": "2023"
     }
 ]

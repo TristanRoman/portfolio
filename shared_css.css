@@ -108,6 +108,10 @@ label.color-scheme select optgroup{
 }
 /* Start of CSS taken from source*/
 .tilesWrap {
+	display: flex;
+	flex-wrap: wrap;
+	justify-content: flex-start;
+	align-items: flex-start;
 	padding: 0;
 	list-style: none;
 	text-align: center;
@@ -126,7 +130,6 @@ label.color-scheme select optgroup{
 	background: #000000;
 	border: 1px solid #252727;
 	text-align: left;
-    float: left;
 }
 
 .tilesWrap li h2 {

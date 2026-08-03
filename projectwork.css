@@ -30,11 +30,11 @@
     box-shadow: 0 0 5px 5px rgba(0, 0, 0, 0.5);
 }
 
-/* Grid used to hold the systems analysis and design work*/
-.analysis_design_grid{
+/* Grid used to hold the data science work*/
+.data_science_grid{
     display: grid;
     grid-template-columns: 25vw 73vw;
-    grid-template-rows: 60vh;
+    grid-template-rows: minmax(60vh, auto);
     background-size: cover;
     border-style: solid;
     box-shadow: 0 0 5px 5px rgba(0, 0, 0, 0.5);

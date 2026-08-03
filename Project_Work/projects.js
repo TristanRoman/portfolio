@@ -5,8 +5,9 @@ import * as d3 from 'https://cdn.jsdelivr.net/npm/d3@7.9.0/+esm';
 import { fetchJSON, renderProjects } from '../global.js';
 
 // --------------------------- Data load ---------------------------
-const projects = await fetchJSON('../lib/projects.json')
-  .catch(() => fetchJSON('./lib/projects.json')); // fallback for hosting differences
+// fetch() resolves relative to the page URL (not this script's location),
+// and projectwork.html lives at the repo root alongside lib/.
+const projects = await fetchJSON('./lib/projects.json');
 
 // -------------------- Stable color scale (by YEAR) --------------------
 // Build a stable domain from the FULL dataset (not filtered)
@@ -41,12 +42,12 @@ function renderCategoryGrids() {
     );
   }
 
-  // Systems Analysis & Design (SAD/AD) — optional
-  const sadUL = document.querySelector('.analysis_design_grid .tilesWrap');
-  if (sadUL) {
-    const sad = projects.filter((p) => p.acronym === 'SAD' || p.acronym === 'AD');
-    sadUL.innerHTML = '';
-    if (sad.length) renderProjects(sad, sadUL, 'h3');
+  // Data Science (DS)
+  const dsUL = document.querySelector('.data_science_grid .tilesWrap');
+  if (dsUL) {
+    const ds = projects.filter((p) => p.acronym === 'DS');
+    dsUL.innerHTML = '';
+    if (ds.length) renderProjects(ds, dsUL, 'h3');
   }
 
   // Optional: update a title counter if present
