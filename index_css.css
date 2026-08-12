@@ -75,7 +75,7 @@
 .about_me_grid{
     display: grid;
     grid-template-columns: 1fr 1fr;
-    grid-template-rows: 19vh 46vh 46vh 46vh 46vh 46vh 46vh;
+    grid-template-rows: 19vh repeat(6, minmax(46vh, auto));
     background: var(--surface);                     /* adaptive */
     margin-left: 5vw;
     margin-right: 5vw;
@@ -117,7 +117,9 @@
     font-family: Verdana, Geneva, Tahoma, sans-serif;
     background: var(--panel);              /* adaptive card */
     color: canvastext;
-    height: 35vh;
+    min-height: 35vh;
+    height: auto;
+    padding-bottom: 2vh;
     width: 35vw;
     margin-top: 3.5vh;
     box-shadow: 5px 0px 10px oklch(0% 0 0 / 40%);
@@ -128,7 +130,9 @@
     font-family: Verdana, Geneva, Tahoma, sans-serif;
     background: var(--panel);
     color: canvastext;
-    height: 35vh;
+    min-height: 35vh;
+    height: auto;
+    padding-bottom: 2vh;
     width: 35vw;
     margin-top: 3.5vh;
     box-shadow: -5px 0px 10px oklch(0% 0 0 / 40%);
@@ -154,8 +158,10 @@
 /* Headings (ensure adaptive text color) */
 .about_me_heading_right,
 .about_me_heading_left{
-    display: inline-block;
+    display: block;
+    width: calc(100% - 4vw);
     margin-left: 2vw;
+    margin-right: 2vw;
     margin-top: 6vh;
     font-size: 1.7em;
     font-family: Verdana, Geneva, Tahoma, sans-serif;
