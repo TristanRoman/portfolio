@@ -134,5 +134,14 @@
     "link": "",
     "image": "",
     "year": "2023"
+    },
+    {
+  "acronym": "DS",
+  "title": "Aircraft Sustainment Analytics",
+  "description": "End-to-end analytics pipeline for fleet maintenance: synthetic data generation feeds a validated SQLite warehouse, shared feature engineering, and a model predicting which open maintenance events are at risk of running past 48 hours, surfaced through a Streamlit app for planners.\n                        Python · SQLite · scikit-learn · feature engineering · Streamlit",
+  "link": "https://sustainment-analytics-platform-fknkpqfekbjadofmgr3ryb.streamlit.app/",
+  "github": "https://github.com/TristanRoman/sustainment-analytics-platform",
+  "image": "",
+  "year": "2026"
     }
 ]

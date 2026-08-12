@@ -155,6 +155,17 @@ export function renderProjects(projects, container, headingLevel = 'h3') {
       li.appendChild(a);
     }
 
+    // Optional GitHub link button
+    if (p.github) {
+      const gh = document.createElement('a');
+      gh.href = p.github;
+      gh.target = '_blank';
+      gh.rel = 'noopener noreferrer';
+      gh.className = 'view_buttons';
+      gh.textContent = 'GitHub';
+      li.appendChild(gh);
+    }
+
     ul.appendChild(li);
   });
 }

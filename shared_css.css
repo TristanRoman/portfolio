@@ -183,7 +183,7 @@ label.color-scheme select optgroup{
     border-right: 1px solid #333333;
     border-bottom: 1px solid #333333;
     border-left: 1px solid #CCCCCC;
-    
+    margin-right: 6px;
 }
 
 #profile-stats .gh-stats {
