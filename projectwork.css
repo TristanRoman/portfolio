@@ -14,7 +14,7 @@
 .project_management_grid{
     display: grid;
     grid-template-columns: 25vw 73vw;
-    grid-template-rows: 60vh;
+    grid-template-rows: minmax(60vh, auto);
     background-size: cover;
     border-style: solid;
     box-shadow: 0 0 5px 5px rgba(0, 0, 0, 0.5);
@@ -24,7 +24,7 @@
 .business_communication_grid{
     display: grid;
     grid-template-columns: 25vw 73vw;
-    grid-template-rows: 60vh;
+    grid-template-rows: minmax(60vh, auto);
     background-size: cover;
     border-style: solid;
     box-shadow: 0 0 5px 5px rgba(0, 0, 0, 0.5);
@@ -42,7 +42,14 @@
 
 /* Styling for leftside heading*/
 .showcase_heading{
-    height: 13vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    align-self: start;
+    min-height: 13vh;
+    height: auto;
+    padding: 0.4em 0.5em;
+    box-sizing: border-box;
     font-family: Geneva, Tahoma, sans-serif;
     font-size: 3em;
     font-weight: 1000;
